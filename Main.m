@@ -1,6 +1,6 @@
-%--------examples of how to use Stimulation functions to build stimulated signals-------
+%--------examples of how to use Simulation functions to build stimulated signals-------
 Timelag=-0.02;
-[ Signal ] = stimulation( TimeLag );
+[ Signal ] = simulation( TimeLag );
 %--------examples of calculating PAC_CMI using defalt settings-------
 range=[3,8;30,50];
 srate=1000;
