@@ -25,7 +25,7 @@ t=[1:length(S_alpha)]./1000;
 f_gamma=70;
 S_gamma=(1-1./(1+exp(-a.*(S_alpha-c)))).*(sin(2.*pi.*f_gamma.*(t))+1);
 
-%---------Introduce TimeLag to gamma oscillation--------------
+%---------Introduce TimeLag to gamma oscillation-------------
 n=round((TimeLag/0.001));
 if n==0
     S_gamma_Timelag=S_gamma;
