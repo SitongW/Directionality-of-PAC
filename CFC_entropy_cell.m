@@ -1,19 +1,19 @@
 function Y=CFC_entropy_cell(C,range1,range2,width,srate,fil_mode,bin,cross)
-% ��С�����ڣ���CFC-entropy������PAC
-% ����cell��ÿ��Ԫ����һ�����������ݣ���һ����ʱ�䣬�ڶ����ǵ�һ�����������ǵڶ���
-% range1Ϊtheta���˲���Χ����range1=[3,4;4,5;5,6;6,7;7,8];
-% range2Ϊgamma���˲���Χ����range2=[30,31;31,32;...;99,100];
-% ���ڳ���width��50% overlap��srateΪ����Ƶ��
-% fil_modeΪ�˲���ʽ��eegfilt��wavelet����ѡ��
-% binΪxÿ����λ���ڷֵ���������binͨ��ȡ18������360�ȵ����ڷֳ�18��20�ȵ�����
-% cross����aa��ָʾ��chan1��chan1֮���MI����ab��ָʾ��chan1��chan2֮���MI
-%         ͬ����ba���͡�bb��
+% 在小窗口内，用CFC-entropy方法求PAC
+% 输入cell，每个元素是一个单独的数据，第一列是时间，第二列是第一导，第三列是第二导
+% range1为theta波滤波范围，如range1=[3,4;4,5;5,6;6,7;7,8];
+% range2为gamma波滤波范围，如range2=[30,31;31,32;...;99,100];
+% 窗口长度width，50% overlap；srate为采样频率
+% fil_mode为滤波方式：eegfilt和wavelet两个选择
+% bin为x每个相位周期分的区间数，bin通常取18，即将360度的周期分成18个20度的区间
+% cross：‘aa’指示做chan1和chan1之间的MI；‘ab’指示做chan1和chan2之间的MI
+%         同理’ba‘和’bb‘
 
-% �����ÿ�������Ľ����Ȼ���cell��2*��������Ԫ��
-% Row1��ÿ��Ԫ��Ϊentropy
-% ��1��Ϊ���ڳ�ʼʱ��㣬��2��Ϊÿ�����ڵ�ƽ��entropyֵ
-% Row2��ÿ��Ԫ��Ϊgamma_amp��thetaÿ���Ƕȸ����ڵ�pdf
-% Ϊ��άά���󣬣�j,p,q,:��Ϊ��j������theta��i��Ƶ����gamma��j��Ƶ���ڣ���bin�������ϵ�ƽ���ķֲ�����
+% 输出：每个样本的结果依然存成cell，2*样本数个元素
+% Row1：每个元素为entropy
+% 第1列为窗口初始时间点，第2列为每个窗口的平均entropy值
+% Row2：每个元素为gamma_amp在theta每个角度格子内的pdf
+% 为四维维矩阵，（j,p,q,:）为第j个窗口theta第i个频段内gamma第j个频段内，在bin个区间上的平均的分布概率
 
 
 
@@ -63,7 +63,7 @@ for i=1:num
                 Pdf(j,:)=pdf;
                 Ent(j)=ent;
 %                 subplot(8,10,j); 
-%                 plot(pdf)   %��ͼ
+%                 plot(pdf)   % plot
             end
             Y{1,i}(q,p)=mean(Ent);
             Y{2,i}(q,p,:)=mean(Pdf);
