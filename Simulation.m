@@ -1,5 +1,5 @@
-function [ S ] = stimulation( TimeLag )
-% Generate numeriacla stimulated signals
+function [ S ] = simulation( TimeLag )
+% Generate numeriacla simulated signals
 %------------- alpha rhythm---------------------
 S_alpha=[];
 for j=1:5000
